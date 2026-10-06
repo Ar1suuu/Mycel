@@ -16,8 +16,6 @@ import {
 import { clsx } from 'clsx';
 import { useVaultStore } from '@/stores/vault';
 import { useRecentVaults, vaultDisplayName } from '@/stores/recentVaults';
-import { LivingCanvas } from '@/components/fx/LivingCanvas';
-import { useSporeMotion } from '@/hooks/useSporeMotion';
 import { Logo } from '@/components/brand/Logo';
 import { CloneVaultDialog } from '@/components/sync/CloneVaultDialog';
 
@@ -50,7 +48,6 @@ export function VaultPicker() {
   const [error, setError] = useState<string | null>(null);
   const [cloneOpen, setCloneOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
-  const sporeMotion = useSporeMotion();
 
   // Keep a valid selection: the last vault opened, else the first recent.
   useEffect(() => {
@@ -109,9 +106,7 @@ export function VaultPicker() {
   const busy = loading !== null;
 
   return (
-    <div className="relative h-full overflow-hidden bg-surface-1">
-      <LivingCanvas still={!sporeMotion} />
-      <div className="myc-canvas-veil" />
+    <div className="relative h-full overflow-hidden ocean-bg">
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full gap-4 px-6 py-10 overflow-y-auto pointer-events-none">
         <section className="myc-glass pointer-events-auto w-full max-w-[680px] rounded-[28px] p-7 sm:p-8 flex flex-col gap-6">

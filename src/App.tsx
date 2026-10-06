@@ -5,7 +5,6 @@ import { clsx } from 'clsx';
 import { useTheme } from '@/hooks/useTheme';
 import { useQuickNote } from '@/hooks/useQuickNote';
 import { useAutoLock } from '@/hooks/useAutoLock';
-import { useSporeMotionRootClass } from '@/hooks/useSporeMotion';
 import { useVaultStore } from '@/stores/vault';
 import { useUIStore } from '@/stores/ui';
 import { useRecentVaults } from '@/stores/recentVaults';
@@ -14,9 +13,7 @@ import { EditorTabs } from '@/components/editor/EditorTabs';
 import { MarkdownEditor } from '@/components/editor/MarkdownEditor';
 import { ImageViewer } from '@/components/editor/ImageViewer';
 import { EmptyEditor } from '@/components/editor/EmptyEditor';
-import { LivingCanvas } from '@/components/fx/LivingCanvas';
 import { RightPanel } from '@/components/ui/RightPanel';
-import { PalettePicker } from '@/components/ui/PalettePicker';
 import { VaultPicker } from '@/components/onboarding/VaultPicker';
 import { QuickSwitcher } from '@/components/search/QuickSwitcher';
 import { GraphView } from '@/components/graph/GraphView';
@@ -62,7 +59,6 @@ const QUICK_NOTE_SHORTCUT = QUICK_NOTE_GLOBAL_SHORTCUT;
 export default function App() {
   useTheme();
   useAutoLock();
-  useSporeMotionRootClass();
 
   const { vaultRoot, activeTabPath, openVault, closeVault } = useVaultStore();
   const { sidebarCollapsed, rightPanelCollapsed, toggleSidebar, toggleRightPanel } = useUIStore();
@@ -273,13 +269,8 @@ export default function App() {
 
   return (
     <div className="relative isolate flex flex-col h-screen bg-app text-text-primary">
-      {/* The living canvas, frozen and defocused, glows through the glass
-          panes. Still, so it costs nothing while you write. */}
-      {!focusMode && (
-        <div className="myc-backdrop" aria-hidden="true">
-          <LivingCanvas still />
-        </div>
-      )}
+      {/* The ocean behind the panes: a still CSS gradient, painted once. */}
+      {!focusMode && <div className="myc-backdrop" aria-hidden="true" />}
       <div className="relative z-10 flex flex-col flex-1 min-h-0 myc-awaken">
         {/* Top toolbar */}
         {!focusMode && (
@@ -398,7 +389,6 @@ export default function App() {
           >
             <SettingsIcon size={14} />
           </button>
-          <PalettePicker />
         </footer>
         )}
       </div>

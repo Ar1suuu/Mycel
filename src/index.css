@@ -1,11 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Keep the existing v3 JS config (colors, radii, fonts) in effect. */
+@config "../tailwind.config.js";
+
+/* v4: class-based dark mode needs an explicit variant. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * Mycel — Design Palette v1
- * Calm dark workspace · bio-tech accents · research software · organic intelligence.
- * Visual reference: Obsidian × Linear × biology lab.
+ * Mycel — Ocean (Jarvis) identity
+ * Deep-ocean dark workspace · cyan HUD accent · calm, low-noise glass.
+ * Single identity: one palette, always dark.
  */
 
 /* Type: one family for the chrome, one for reading and writing notes,
@@ -18,474 +22,56 @@
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
-/* Light theme — kept as soft variant of the same identity (not the primary mode). */
+/* Ocean — the one and only palette. Deep-navy room, Jarvis-cyan light.
+   Declared on :root so the identity holds even before the theme class lands. */
 :root {
-  --color-surface-0:        #ffffff;
-  --color-surface-1:        #f7f8f5;
-  --color-surface-2:        #eef1ea;
-  --color-surface-hover:    #e4e9da;
+  --color-surface-0:        #02070D;
+  --color-surface-1:        #050E1A;
+  --color-surface-2:        #0A1727;
+  --color-surface-hover:    #10233A;
 
-  --color-text-primary:     #1a1f1a;
-  --color-text-secondary:   #4a544a;
-  --color-text-muted:       #7a8275;
-  --color-text-disabled:    #a8aea2;
+  --color-text-primary:     #E4F0FA;
+  --color-text-secondary:   #9DB6C9;
+  --color-text-muted:       #5F7A92;
+  --color-text-disabled:    #3A4E63;
 
-  --color-accent:           #5C7012;
-  --color-accent-bright:    #97B91E;
-  --color-accent-muted:     #6f8516;
-  --color-accent-deep:      #3f4d0c;
+  --color-accent:           #22D3EE;
+  --color-accent-bright:    #7DEFFC;
+  --color-accent-muted:     #0EA5C4;
+  --color-accent-deep:      #155E75;
 
-  --color-border:           #d9dccf;
-  --color-border-strong:    #b9bea9;
-
-  --color-success:          #2fa372;
-  --color-warning:          #d68f1a;
-  --color-error:            #d94a4a;
-  --color-info:             #3a82d6;
-
-  --color-graph-active:     #97B91E;
-  --color-graph-connected:  #A7D129;
-  --color-graph-inactive:   #c5cbb6;
-  --color-graph-edge:       #d2d7c4;
-  --color-graph-edge-glow:  #97B91E;
-
-  --color-wikilink:         #5C7012;
-  --color-wikilink-broken:  #c0382b;
-  --color-tag:              #2f7a8a;
-  --color-embedding:        #2faf6c;
-
-  --color-search-bg:        #f1f4ec;
-  --color-search-selected:  #e2e8d4;
-  --color-semantic-glow:    rgba(151, 185, 30, 0.18);
-
-  --color-code-bg:          #eef1ea;
-  --color-inline-code:      #5C7012;
-
-  --color-selection:        rgba(151, 185, 30, 0.22);
-  --color-active-line:      rgba(0, 0, 0, 0.03);
-
-  --shadow-glow:            0 0 24px rgba(151, 185, 30, 0.18);
-
-  color-scheme: light;
-}
-
-/* ── Palette overrides ────────────────────────────────────────────────────
- * Shared Mycel identity: calm low-noise surfaces, one bright accent that
- * drives wikilinks, glow, code, and selection. Only the accent-driven
- * tokens shift between palettes — surfaces, text, and borders stay the
- * same so every theme reads as the "same room, different lamp". */
-
-:root[data-palette='amber'] {
-  --color-surface-0:        #fffaf2;
-  --color-surface-1:        #fdf5e8;
-  --color-surface-2:        #f7ecd6;
-  --color-surface-hover:    #efdfbe;
-
-  --color-text-primary:     #2a1f0d;
-  --color-text-secondary:   #4a3a1f;
-  --color-text-muted:       #7a6840;
-  --color-text-disabled:    #b3a37a;
-
-  --color-accent:           #B66E0D;
-  --color-accent-bright:    #E48A1A;
-  --color-accent-muted:     #C77E13;
-  --color-accent-deep:      #6E4006;
-
-  --color-border:           #e6d6b3;
-  --color-border-strong:    #c9b486;
-
-  --color-graph-active:     #E48A1A;
-  --color-graph-connected:  #F0B254;
-  --color-graph-inactive:   #d6c7a0;
-  --color-graph-edge:       #e0d0a8;
-  --color-graph-edge-glow:  #E48A1A;
-
-  --color-wikilink:         #B66E0D;
-  --color-tag:              #8A6510;
-  --color-inline-code:      #B66E0D;
-
-  --color-search-bg:        #f7ecd6;
-  --color-search-selected:  #efdfbe;
-  --color-semantic-glow:    rgba(228, 138, 26, 0.18);
-
-  --color-code-bg:          #f7ecd6;
-
-  --color-selection:        rgba(228, 138, 26, 0.22);
-  --shadow-glow:            0 0 24px rgba(228, 138, 26, 0.18);
-}
-:root[data-palette='azure'] {
-  --color-surface-0:        #ffffff;
-  --color-surface-1:        #f5f8fc;
-  --color-surface-2:        #e9f0f9;
-  --color-surface-hover:    #dbe6f4;
-
-  --color-text-primary:     #0d1a2a;
-  --color-text-secondary:   #2b3a52;
-  --color-text-muted:       #607089;
-  --color-text-disabled:    #a3b1c4;
-
-  --color-accent:           #1F66C7;
-  --color-accent-bright:    #3A82E2;
-  --color-accent-muted:     #2870D0;
-  --color-accent-deep:      #143F7E;
-
-  --color-border:           #d3dfee;
-  --color-border-strong:    #aabfd8;
-
-  --color-graph-active:     #3A82E2;
-  --color-graph-connected:  #76A8EA;
-  --color-graph-inactive:   #c5d0de;
-  --color-graph-edge:       #d3dfee;
-  --color-graph-edge-glow:  #3A82E2;
-
-  --color-wikilink:         #1F66C7;
-  --color-tag:              #146A8C;
-  --color-inline-code:      #1F66C7;
-
-  --color-search-bg:        #eef3fa;
-  --color-search-selected:  #dbe6f4;
-  --color-semantic-glow:    rgba(58, 130, 226, 0.18);
-
-  --color-code-bg:          #eef3fa;
-
-  --color-selection:        rgba(58, 130, 226, 0.22);
-  --shadow-glow:            0 0 24px rgba(58, 130, 226, 0.18);
-}
-/* Sage — steel-gray surfaces with a muted swamp-green accent. Light-forcing
-   (like Amber/Azure/Classic): picking it gives a calm cool-gray look with an
-   olive/bog-green accent regardless of the dark/light toggle. */
-:root[data-palette='sage'],
-.dark[data-palette='sage'] {
-  --color-surface-0:        #ffffff;
-  --color-surface-1:        #f1f3f5;
-  --color-surface-2:        #e3e7ea;
-  --color-surface-hover:    #d5dbe0;
-
-  --color-text-primary:     #1b2127;
-  --color-text-secondary:   #3b454d;
-  --color-text-muted:       #69737b;
-  --color-text-disabled:    #a6afb6;
-
-  --color-accent:           #4F6B3A;
-  --color-accent-bright:    #6B8A52;
-  --color-accent-muted:     #5C7A47;
-  --color-accent-deep:      #324425;
-
-  --color-border:           #d3d9de;
-  --color-border-strong:    #aab2ba;
-
-  --color-success:          #2fa372;
-  --color-warning:          #c98a1a;
-  --color-error:            #d94a4a;
-  --color-info:             #3a82d6;
-
-  --color-graph-active:     #6B8A52;
-  --color-graph-connected:  #93AE7A;
-  --color-graph-inactive:   #c3cac4;
-  --color-graph-edge:       #d3d9de;
-  --color-graph-edge-glow:  #6B8A52;
-
-  --color-wikilink:         #4F6B3A;
-  --color-wikilink-broken:  #c0382b;
-  --color-tag:              #2f7a8a;
-  --color-embedding:        #2faf6c;
-
-  --color-search-bg:        #eceff2;
-  --color-search-selected:  #d5dbe0;
-  --color-semantic-glow:    rgba(107, 138, 82, 0.18);
-
-  --color-code-bg:          #e8ebee;
-  --color-inline-code:      #4F6B3A;
-
-  --color-selection:        rgba(107, 138, 82, 0.22);
-  --color-active-line:      rgba(0, 0, 0, 0.03);
-
-  --shadow-glow:            0 0 24px rgba(107, 138, 82, 0.18);
-
-  color-scheme: light;
-}
-
-:root[data-palette='plum'] {
-  --color-accent:           #6E3DB8;
-  --color-accent-bright:    #8A5BD6;
-  --color-accent-muted:     #7848C5;
-  --color-accent-deep:      #44216F;
-
-  --color-graph-active:     #8A5BD6;
-  --color-graph-connected:  #B292FF;
-  --color-graph-edge-glow:  #8A5BD6;
-
-  --color-wikilink:         #6E3DB8;
-  --color-tag:              #874E9E;
-  --color-inline-code:      #6E3DB8;
-  --color-semantic-glow:    rgba(138, 91, 214, 0.18);
-  --color-selection:        rgba(138, 91, 214, 0.22);
-  --shadow-glow:            0 0 24px rgba(138, 91, 214, 0.18);
-}
-:root[data-palette='coral'] {
-  --color-accent:           #C2452F;
-  --color-accent-bright:    #E25A40;
-  --color-accent-muted:     #CB4D34;
-  --color-accent-deep:      #7C2A1C;
-
-  --color-graph-active:     #E25A40;
-  --color-graph-connected:  #F0846D;
-  --color-graph-edge-glow:  #E25A40;
-
-  --color-wikilink:         #C2452F;
-  --color-tag:              #A3502E;
-  --color-inline-code:      #C2452F;
-  --color-semantic-glow:    rgba(226, 90, 64, 0.18);
-  --color-selection:        rgba(226, 90, 64, 0.22);
-  --shadow-glow:            0 0 24px rgba(226, 90, 64, 0.18);
-}
-
-/* Classic — pure light. Forces white surfaces and near-black text regardless
-   of dark/light mode, so picking "Classic" gives a clean ink-on-paper look. */
-:root[data-palette='classic'],
-.dark[data-palette='classic'] {
-  --color-surface-0:        #ffffff;
-  --color-surface-1:        #fafafa;
-  --color-surface-2:        #f1f1f1;
-  --color-surface-hover:    #e6e6e6;
-
-  --color-text-primary:     #0a0a0a;
-  --color-text-secondary:   #2b2b2b;
-  --color-text-muted:       #6b6b6b;
-  --color-text-disabled:    #a3a3a3;
-
-  --color-accent:           #1F66C7;
-  --color-accent-bright:    #2D7AE0;
-  --color-accent-muted:     #285AA8;
-  --color-accent-deep:      #143F7E;
-
-  --color-border:           #d9d9d9;
-  --color-border-strong:    #b3b3b3;
-
-  --color-graph-active:     #1F66C7;
-  --color-graph-connected:  #5E94DD;
-  --color-graph-inactive:   #cfcfcf;
-  --color-graph-edge:       #dcdcdc;
-  --color-graph-edge-glow:  #1F66C7;
-
-  --color-wikilink:         #1F66C7;
-  --color-wikilink-broken:  #c0382b;
-  --color-tag:              #146A8C;
-  --color-embedding:        #2faf6c;
-
-  --color-search-bg:        #f4f4f4;
-  --color-search-selected:  #e2e8f0;
-  --color-semantic-glow:    rgba(31, 102, 199, 0.16);
-
-  --color-code-bg:          #f4f4f4;
-  --color-inline-code:      #1F66C7;
-
-  --color-selection:        rgba(31, 102, 199, 0.18);
-  --color-active-line:      rgba(0, 0, 0, 0.03);
-
-  --shadow-glow:            0 0 24px rgba(31, 102, 199, 0.16);
-
-  color-scheme: light;
-}
-
-/* The living canvas's glass tint. Follows each palette's deep accent;
-   Moss alone gets the icon's own green so the glass reads alive rather
-   than olive. Declared on the root element, so the var() resolves against
-   whichever palette is active there. */
-:root {
-  --color-living: var(--color-accent-deep);
-}
-:root:not([data-palette]),
-:root[data-palette='moss'] {
-  --color-living: #3E7A1F;
-}
-.dark:not([data-palette]),
-.dark[data-palette='moss'] {
-  --color-living: #2E7A22;
-}
-
-/* Dark theme — the primary Mycel surface. */
-.dark {
-  /* Near-black with a faint living-green undertone — the room the glowing
-     mycelium sits in. */
-  --color-surface-0:        #070A08;
-  --color-surface-1:        #0B0F0C;
-  --color-surface-2:        #121813;
-  --color-surface-hover:    #19211A;
-
-  --color-text-primary:     #F2F5EF;
-  --color-text-secondary:   #B4BDB0;
-  --color-text-muted:       #7D887A;
-  --color-text-disabled:    #565F53;
-
-  --color-accent:           #C8F52A;
-  --color-accent-bright:    #D7FF3F;
-  --color-accent-muted:     #97B91E;
-  --color-accent-deep:      #5C7012;
-
-  --color-border:           #1D251F;
-  --color-border-strong:    #2B362D;
+  --color-border:           #12273D;
+  --color-border-strong:    #1F3D5C;
 
   --color-success:          #3DD68C;
   --color-warning:          #FFB84D;
   --color-error:            #FF6B6B;
   --color-info:             #58A6FF;
 
-  --color-graph-active:     #D7FF3F;
-  --color-graph-connected:  #A7D129;
-  --color-graph-inactive:   #3A4453;
-  --color-graph-edge:       #2A3240;
-  --color-graph-edge-glow:  #C8F52A;
+  --color-graph-active:     #7DEFFC;
+  --color-graph-connected:  #22D3EE;
+  --color-graph-inactive:   #2A3A4E;
+  --color-graph-edge:       #1A2C42;
+  --color-graph-edge-glow:  #22D3EE;
 
-  --color-wikilink:         #B8F542;
+  --color-wikilink:         #5EE9F5;
   --color-wikilink-broken:  #FF7B72;
-  --color-tag:              #8BE9FD;
-  --color-embedding:        #8BFFB0;
+  --color-tag:              #7DD3FC;
+  --color-embedding:        #2DD4BF;
 
-  --color-search-bg:        #0F1510;
-  --color-search-selected:  #18211A;
-  --color-semantic-glow:    rgba(200, 245, 42, 0.18);
+  --color-search-bg:        #071221;
+  --color-search-selected:  #10233A;
+  --color-semantic-glow:    rgba(34, 211, 238, 0.16);
 
-  --color-code-bg:          #0E130F;
-  --color-inline-code:      #D7FF3F;
+  --color-code-bg:          #071223;
+  --color-inline-code:      #7DEFFC;
 
-  --color-selection:        rgba(200, 245, 42, 0.18);
-  --color-active-line:      rgba(200, 245, 42, 0.04);
+  --color-selection:        rgba(34, 211, 238, 0.20);
+  --color-active-line:      rgba(34, 211, 238, 0.05);
 
-  --shadow-glow:            0 0 24px rgba(200, 245, 42, 0.18);
+  --shadow-glow:            0 0 24px rgba(34, 211, 238, 0.16);
 
   color-scheme: dark;
-}
-
-/* Amber & Azure — light-forcing palettes (like Classic). Picking either gives
-   a warm/cool ink-on-paper look regardless of dark/light mode toggle. The
-   light-mode :root[data-palette='amber'|'azure'] above already sets accents;
-   here we override .dark back to light surfaces. */
-.dark[data-palette='amber'] {
-  --color-surface-0:        #fffaf2;
-  --color-surface-1:        #fdf5e8;
-  --color-surface-2:        #f7ecd6;
-  --color-surface-hover:    #efdfbe;
-
-  --color-text-primary:     #2a1f0d;
-  --color-text-secondary:   #4a3a1f;
-  --color-text-muted:       #7a6840;
-  --color-text-disabled:    #b3a37a;
-
-  --color-accent:           #B66E0D;
-  --color-accent-bright:    #E48A1A;
-  --color-accent-muted:     #C77E13;
-  --color-accent-deep:      #6E4006;
-
-  --color-border:           #e6d6b3;
-  --color-border-strong:    #c9b486;
-
-  --color-graph-active:     #E48A1A;
-  --color-graph-connected:  #F0B254;
-  --color-graph-inactive:   #d6c7a0;
-  --color-graph-edge:       #e0d0a8;
-  --color-graph-edge-glow:  #E48A1A;
-
-  --color-wikilink:         #B66E0D;
-  --color-wikilink-broken:  #c0382b;
-  --color-tag:              #8A6510;
-  --color-embedding:        #2faf6c;
-
-  --color-search-bg:        #f7ecd6;
-  --color-search-selected:  #efdfbe;
-  --color-semantic-glow:    rgba(228, 138, 26, 0.18);
-
-  --color-code-bg:          #f7ecd6;
-  --color-inline-code:      #B66E0D;
-
-  --color-selection:        rgba(228, 138, 26, 0.22);
-  --color-active-line:      rgba(0, 0, 0, 0.03);
-
-  --shadow-glow:            0 0 24px rgba(228, 138, 26, 0.18);
-
-  color-scheme: light;
-}
-.dark[data-palette='azure'] {
-  --color-surface-0:        #ffffff;
-  --color-surface-1:        #f5f8fc;
-  --color-surface-2:        #e9f0f9;
-  --color-surface-hover:    #dbe6f4;
-
-  --color-text-primary:     #0d1a2a;
-  --color-text-secondary:   #2b3a52;
-  --color-text-muted:       #607089;
-  --color-text-disabled:    #a3b1c4;
-
-  --color-accent:           #1F66C7;
-  --color-accent-bright:    #3A82E2;
-  --color-accent-muted:     #2870D0;
-  --color-accent-deep:      #143F7E;
-
-  --color-border:           #d3dfee;
-  --color-border-strong:    #aabfd8;
-
-  --color-graph-active:     #3A82E2;
-  --color-graph-connected:  #76A8EA;
-  --color-graph-inactive:   #c5d0de;
-  --color-graph-edge:       #d3dfee;
-  --color-graph-edge-glow:  #3A82E2;
-
-  --color-wikilink:         #1F66C7;
-  --color-wikilink-broken:  #c0382b;
-  --color-tag:              #146A8C;
-  --color-embedding:        #2faf6c;
-
-  --color-search-bg:        #eef3fa;
-  --color-search-selected:  #dbe6f4;
-  --color-semantic-glow:    rgba(58, 130, 226, 0.18);
-
-  --color-code-bg:          #eef3fa;
-  --color-inline-code:      #1F66C7;
-
-  --color-selection:        rgba(58, 130, 226, 0.22);
-  --color-active-line:      rgba(0, 0, 0, 0.03);
-
-  --shadow-glow:            0 0 24px rgba(58, 130, 226, 0.18);
-
-  color-scheme: light;
-}
-
-/* Dark-mode palette overrides — shift only the accent-driven tokens. */
-.dark[data-palette='plum'] {
-  --color-accent:           #C792EA;
-  --color-accent-bright:    #DDB3FF;
-  --color-accent-muted:     #B292FF;
-  --color-accent-deep:      #6D4A95;
-
-  --color-graph-active:     #DDB3FF;
-  --color-graph-connected:  #B292FF;
-  --color-graph-edge-glow:  #C792EA;
-
-  --color-wikilink:         #DDB3FF;
-  --color-tag:              #F0A6D6;
-  --color-inline-code:      #DDB3FF;
-  --color-semantic-glow:    rgba(199, 146, 234, 0.18);
-  --color-selection:        rgba(199, 146, 234, 0.18);
-  --color-active-line:      rgba(199, 146, 234, 0.04);
-  --shadow-glow:            0 0 24px rgba(199, 146, 234, 0.18);
-}
-.dark[data-palette='coral'] {
-  --color-accent:           #FF8B7E;
-  --color-accent-bright:    #FFB4A8;
-  --color-accent-muted:     #FF6F61;
-  --color-accent-deep:      #A8463C;
-
-  --color-graph-active:     #FFB4A8;
-  --color-graph-connected:  #F0846D;
-  --color-graph-edge-glow:  #FF8B7E;
-
-  --color-wikilink:         #FFB4A8;
-  --color-tag:              #FFC59A;
-  --color-inline-code:      #FFB4A8;
-  --color-semantic-glow:    rgba(255, 139, 126, 0.18);
-  --color-selection:        rgba(255, 139, 126, 0.18);
-  --color-active-line:      rgba(255, 139, 126, 0.04);
-  --shadow-glow:            0 0 24px rgba(255, 139, 126, 0.18);
 }
 
 * {
@@ -529,39 +115,16 @@ body {
    tone as the panes themselves, so header, gutter and panes read as one
    window; thin edges separate the panes, not a drop into another space. */
 :root {
-  --color-app: color-mix(in srgb, var(--color-surface-1) 55%, var(--color-surface-2));
-}
-.dark {
   --color-app: var(--color-surface-0);
-}
-.dark[data-palette='amber'],
-.dark[data-palette='azure'],
-.dark[data-palette='sage'],
-.dark[data-palette='classic'] {
-  --color-app: color-mix(in srgb, var(--color-surface-1) 55%, var(--color-surface-2));
 }
 
 /* Overlay glass: how see-through a floating dialog is, and what dims the
-   room behind it. Dark rooms take a black scrim and thin glass; light ones
-   would turn muddy grey that way, so they get a soft ink tint and glass
-   that is nearly paper. */
+   room behind it. Over the flat ocean gradient the glass needs less blur
+   and a touch more body to stay readable. */
 :root {
-  --glass-alpha: 92%;
-  --scrim: color-mix(in srgb, var(--color-text-primary) 16%, transparent);
-  --glass-shadow: 0 24px 64px -20px rgb(0 0 0 / 0.22);
-}
-.dark {
-  --glass-alpha: 66%;
+  --glass-alpha: 74%;
   --scrim: rgb(0 0 0 / 0.5);
   --glass-shadow: 0 30px 80px -24px rgb(0 0 0 / 0.55);
-}
-.dark[data-palette='amber'],
-.dark[data-palette='azure'],
-.dark[data-palette='sage'],
-.dark[data-palette='classic'] {
-  --glass-alpha: 92%;
-  --scrim: color-mix(in srgb, var(--color-text-primary) 16%, transparent);
-  --glass-shadow: 0 24px 64px -20px rgb(0 0 0 / 0.22);
 }
 
 /* The dimmed backdrop behind a modal. */
@@ -591,15 +154,36 @@ body {
   backdrop-filter: blur(30px);
 }
 
-/* The frozen, defocused canvas behind the workspace. */
+/* The room behind the workspace panes: a still ocean — deep-navy falloff
+   with one soft cyan glow overhead (the arc-reactor light) and a second,
+   dimmer one low on the right. Pure CSS, painted once; no canvas, no GPU
+   loop. */
 .myc-backdrop {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* A tint of the room's light, not a scene behind the window. */
-  opacity: 0.28;
-  filter: blur(32px);
+  background:
+    radial-gradient(1100px 560px at 50% -10%,
+      color-mix(in srgb, var(--color-accent) 13%, transparent), transparent 62%),
+    radial-gradient(820px 520px at 88% 110%,
+      color-mix(in srgb, var(--color-accent-deep) 26%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--color-surface-1), var(--color-surface-0));
+}
+
+/* Full-screen rooms (vault picker, empty editor): the same ocean plus a
+   whisper of HUD grid, faint enough to read as texture, not lines. */
+.ocean-bg {
+  background:
+    radial-gradient(1000px 540px at 50% -8%,
+      color-mix(in srgb, var(--color-accent) 11%, transparent), transparent 60%),
+    radial-gradient(760px 520px at 90% 108%,
+      color-mix(in srgb, var(--color-accent-deep) 24%, transparent), transparent 62%),
+    repeating-linear-gradient(0deg,
+      color-mix(in srgb, var(--color-accent) 3%, transparent) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(90deg,
+      color-mix(in srgb, var(--color-accent) 3%, transparent) 0 1px, transparent 1px 56px),
+    linear-gradient(180deg, var(--color-surface-1) 0%, var(--color-surface-0) 100%);
 }
 
 /* ── Living surface ─────────────────────────────────────────────────────
@@ -711,22 +295,14 @@ body {
   border: 1px solid color-mix(in srgb, var(--color-text-primary) 12%, transparent);
 }
 
-/* Keeps text readable over the canvas: darkens (or lightens) the middle of
-   the room where content sits, leaving the glowing edges alive. */
-.myc-canvas-veil {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 60% 55% at 50% 50%,
-    color-mix(in srgb, var(--color-surface-1) 82%, transparent) 0%,
-    color-mix(in srgb, var(--color-surface-1) 35%, transparent) 60%,
-    transparent 100%);
-}
-
 /* CodeMirror overrides */
 .cm-editor {
   height: 100%;
   background: var(--color-surface-1);
+}
+/* Slash / wikilink completion icons in the room's accent, not CM's default. */
+.cm-tooltip-autocomplete .cm-completionIcon {
+  color: var(--color-accent-muted);
 }
 .cm-editor.cm-focused {
   outline: none;
@@ -738,70 +314,33 @@ body {
   box-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 55%, transparent);
 }
 
-/* ── Brand motion ───────────────────────────────────────────────────────── */
+/* ── UI transitions ─────────────────────────────────────────────────
+ * Cheap, one-shot transitions only: every animation ends in `none`
+ * (transform/filter), so nothing lingers that would change stacking or
+ * containing blocks for CodeMirror's fixed-position tooltips. Honours
+ * the OS reduced-motion preference. */
 
+/* The brand spore mark's gentle idle motion (tiny SVGs in empty states). */
 @keyframes mycel-spore-pulse {
   0%, 100% { opacity: 0.55; transform: scale(0.92); }
   50%      { opacity: 1;    transform: scale(1.08); }
 }
-
 @keyframes mycel-breathe {
   0%, 100% { opacity: 0.7;  transform: scale(1); }
   50%      { opacity: 1;    transform: scale(1.05); }
 }
-
 @keyframes mycel-halo {
   0%, 100% { opacity: 0.15; transform: scale(0.96); }
   50%      { opacity: 0.45; transform: scale(1.08); }
 }
-
-@keyframes mycel-drift {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(2px, -2px); }
-}
-
-@keyframes mycel-hypha-glow {
-  0%, 100% { opacity: 0.18; }
-  50%      { opacity: 0.45; }
-}
-
-@keyframes mycel-rotate {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
 .spore-pulse  { animation: mycel-spore-pulse 2.4s ease-in-out infinite; transform-origin: center; }
 .spore-breathe{ animation: mycel-breathe     5s   ease-in-out infinite; transform-origin: center; }
 .spore-halo   { animation: mycel-halo        4s   ease-in-out infinite; transform-origin: center; }
-.spore-drift  { animation: mycel-drift       8s   ease-in-out infinite; }
-.hypha-glow   { animation: mycel-hypha-glow  6s   ease-in-out infinite; }
-.spore-rotate { animation: mycel-rotate      240s linear infinite;      transform-origin: center; }
 
 @media (prefers-reduced-motion: reduce) {
-  .spore-pulse, .spore-breathe, .spore-halo,
-  .spore-drift, .hypha-glow, .spore-rotate {
+  .spore-pulse, .spore-breathe, .spore-halo {
     animation: none;
   }
-}
-
-/* ── Spore motion ───────────────────────────────────────────────────────
- * The workspace's motion is one metaphor: living glassy matter. It buds
- * bubbles, pulls together, and hyphae grow from one place to another and
- * root there. Canvas effects live in lib/spore-fx.ts and the living
- * canvas; these are the CSS-only parts.
- *
- * Every animation ends in `none` (transform/filter), so nothing lingers
- * that would change stacking or containing blocks for CodeMirror's
- * fixed-position tooltips. Switched off by `html.myc-still` (Settings →
- * Spore motion) and by the OS reduced-motion preference. */
-
-.myc-fx-layer {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 90;
 }
 
 /* Vault opened — the workspace grows in behind the germinating spore. */
@@ -876,15 +415,6 @@ body {
                          0 0 14px color-mix(in srgb, var(--color-accent-bright) 35%, transparent); }
 }
 .myc-input { animation: myc-breathe-ring 2.4s ease-in-out infinite; }
-
-:root.myc-still .myc-awaken,
-:root.myc-still .myc-rooted,
-:root.myc-still .myc-sprouted,
-:root.myc-still .myc-grow > *,
-:root.myc-still .myc-input {
-  animation: none;
-}
-:root.myc-still .myc-grow::before { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .myc-awaken, .myc-rooted, .myc-sprouted, .myc-grow > *,

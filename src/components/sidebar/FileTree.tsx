@@ -26,7 +26,6 @@ import { useVaultStore } from '@/stores/vault';
 import { useCryptoStore } from '@/stores/crypto';
 import { useInsightsStore } from '@/stores/insights';
 import { stripNoteExt, isAttachmentPath } from '@/lib/note-name';
-import { sproutRow } from '@/lib/spore-fx';
 import { KbContextMenu } from '@/components/kb/KbContextMenu';
 
 const DRAG_MIME = 'application/x-mycel-path';
@@ -881,11 +880,9 @@ export function FileTree() {
         const name = `${trimmed.replace(/\.md$/, '')}.md`;
         const path = joinPath(state.parent, name);
         await createNote(path);
-        sproutRow(path);
       } else {
         const path = joinPath(state.parent, trimmed);
         await createFolder(path);
-        sproutRow(path);
       }
     } catch (e) {
       // The backend now refuses to create over an existing note instead of

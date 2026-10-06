@@ -93,11 +93,6 @@ function focusFileTree() {
   });
 }
 
-function toggleTheme() {
-  const ui = useUIStore.getState();
-  const dark = document.documentElement.classList.contains('dark');
-  ui.setTheme(dark ? 'light' : 'dark');
-}
 
 function gardenView(id: string, title: string, view: GardenView, hotkey?: string): Command {
   return {
@@ -305,12 +300,6 @@ export function getAppCommands(): Command[] {
       title: 'Narrower text column',
       section: 'View',
       run: () => nudgeReadableWidth(-READABLE_WIDTH_STEP),
-    },
-    {
-      id: 'view.toggleTheme',
-      title: 'Toggle light/dark theme',
-      section: 'View',
-      run: toggleTheme,
     },
     {
       id: 'settings.open',

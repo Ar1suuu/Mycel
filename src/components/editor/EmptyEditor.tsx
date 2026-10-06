@@ -4,8 +4,6 @@ import { clsx } from 'clsx';
 import { useVaultStore } from '@/stores/vault';
 import { describeError, useToastStore } from '@/stores/toast';
 import { useUIStore } from '@/stores/ui';
-import { LivingCanvas } from '@/components/fx/LivingCanvas';
-import { useSporeMotion } from '@/hooks/useSporeMotion';
 import { useHotkeyBindings } from '@/hooks/useHotkeyBindings';
 import { formatHotkey } from '@/lib/commands';
 import { isMac } from '@/lib/platform';
@@ -32,7 +30,6 @@ export function EmptyEditor() {
   const vaultRoot = useVaultStore((s) => s.vaultRoot);
   const setQuickSwitcherOpen = useUIStore((s) => s.setQuickSwitcherOpen);
   const bindings = useHotkeyBindings();
-  const sporeMotion = useSporeMotion();
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -101,13 +98,11 @@ export function EmptyEditor() {
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center h-full overflow-hidden select-none"
+      className="relative flex flex-col items-center justify-center h-full overflow-hidden select-none ocean-bg"
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
     >
-      <LivingCanvas still={!sporeMotion} />
-      <div className="myc-canvas-veil" />
 
       <div className="relative z-10 flex flex-col items-center gap-5 px-6 text-center pointer-events-none">
         <BookOpen size={34} strokeWidth={1.4} className="text-text-secondary" aria-hidden="true" />

@@ -6,16 +6,10 @@ import { DEFAULT_DAILY_FOLDER } from '@/lib/daily-notes';
 
 type Theme = 'light' | 'dark' | 'system';
 
-export type Palette = 'moss' | 'amber' | 'azure' | 'plum' | 'coral' | 'sage' | 'classic';
+export type Palette = 'ocean';
 
 export const PALETTES: { id: Palette; label: string; swatch: string }[] = [
-  { id: 'moss',    label: 'Moss',          swatch: '#C8F52A' },
-  { id: 'plum',    label: 'Plum',          swatch: '#B292FF' },
-  { id: 'coral',   label: 'Coral',         swatch: '#FF7E6B' },
-  { id: 'amber',   label: 'Amber (Light)', swatch: '#E48A1A' },
-  { id: 'azure',   label: 'Azure (Light)', swatch: '#3A82E2' },
-  { id: 'sage',    label: 'Sage (Light)',  swatch: '#6B8A52' },
-  { id: 'classic', label: 'Classic',       swatch: '#ffffff' },
+  { id: 'ocean',   label: 'Ocean',         swatch: '#22D3EE' },
 ];
 
 export const SIDEBAR_MIN_WIDTH = 160;
@@ -32,16 +26,12 @@ export const READABLE_WIDTH_STEP = 4;
 /// so a user who hides Garden never has to deal with it again.
 export interface FeatureFlags {
   garden: boolean;
-  /** Living motion: drifting spores, hyphae growing, notes and folders
-   *  germinating into the Mycel mark. */
-  sporeMotion: boolean;
   /** Keep note text in a centred column of comfortable line length. */
   readableWidth: boolean;
 }
 
 const DEFAULT_FEATURES: FeatureFlags = {
   garden: true,
-  sporeMotion: true,
   readableWidth: true,
 };
 
@@ -109,7 +99,7 @@ export const useUIStore = create<UIState>()(
   persist(
     (set) => ({
       theme: 'dark',
-      palette: 'moss',
+      palette: 'ocean',
       sidebarCollapsed: false,
       sidebarWidth: SIDEBAR_DEFAULT_WIDTH,
       readableWidth: READABLE_WIDTH_DEFAULT,
@@ -175,6 +165,10 @@ export const useUIStore = create<UIState>()(
         return {
           ...current,
           ...p,
+          // Single-identity app: whatever a previous build stored, the
+          // palette is ocean and the room is dark.
+          palette: 'ocean',
+          theme: 'dark',
           features: { ...DEFAULT_FEATURES, ...(p.features ?? {}) },
         };
       },

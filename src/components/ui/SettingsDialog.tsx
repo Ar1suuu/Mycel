@@ -31,12 +31,6 @@ const FEATURE_ROWS: FeatureRow[] = [
     description:
       'Keep note text in a centred column of comfortable length instead of stretching across the whole window.',
   },
-  {
-    key: 'sporeMotion',
-    label: 'Spore motion',
-    description:
-      'Living animation: spores drifting on the empty screen, new notes and folders germinating into the Mycel mark. Always off when the system asks to reduce motion.',
-  },
 ];
 
 type Tab = 'features' | 'notes' | 'hotkeys' | 'ai' | 'insights';

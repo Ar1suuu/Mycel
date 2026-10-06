@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { holdSporeAir } from '@/lib/spore-fx';
 import { invoke } from '@tauri-apps/api/core';
 import { listen, type UnlistenFn } from '@tauri-apps/api/event';
 import { clsx } from 'clsx';
@@ -136,9 +135,6 @@ export function GraphView({ onClose }: Props) {
     !!aiStatus?.has_key &&
     (aiIndex?.chunks_indexed ?? 0) > 0;
 
-  // The graph covers the whole window; stop the spore field underneath
-  // from drawing frames nobody can see.
-  useEffect(() => holdSporeAir(), []);
 
   // ── Fetch ────────────────────────────────────────────────────────────────
   useEffect(() => {
